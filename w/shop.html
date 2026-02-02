@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop – SGWEN X</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+/* ===== BODY ===== */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: #fff;
+  overflow-x: hidden;
+}
+
+/* ===== NAVBAR CENTERED ===== */
+nav {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+  background: rgba(0,0,0,0.5);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+nav ul {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #ffd700;
+  font-weight: 600;
+  font-size: 18px;
+  transition: 0.3s;
+}
+
+nav ul li a:hover {
+  color: #fff;
+}
+
+/* ===== FADE-IN ANIMATION ===== */
+.fade {
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+  0% {opacity:0; transform: translateY(20px);}
+  100% {opacity:1; transform: translateY(0);}
+}
+
+/* ===== PASSWORD SCREEN ===== */
+#password-screen {
+  height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.password-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-container input {
+  padding: 12px 40px 12px 12px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #aaa;
+}
+
+.toggle-eye {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  color: #000;
+}
+
+#password-screen button {
+  padding: 12px 25px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  background: #ffd700;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#password-screen button:hover {
+  background: #fff;
+}
+
+/* ===== SHOP CONTENT ===== */
+#shop-content {
+  display: none;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.items-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+
+.item-box {
+  background: rgba(255,255,255,0.1);
+  padding: 25px;
+  border-radius: 12px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.item-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+}
+
+.item-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.counter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.counter button {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: #ffd700;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.counter button:hover {
+  background: #fff;
+}
+
+.add-btn {
+  padding: 8px 20px;
+  border: none;
+  background: #ffd700;
+  color: black;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.add-btn:hover {
+  background: #fff;
+}
+
+/* ===== ORDER LIST ===== */
+#order-list {
+  margin-top: 40px;
+  padding: 25px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 10px;
+  border: 1px solid #fff;
+}
+
+#send-btn {
+  padding: 12px 25px;
+  border: none;
+  background: green;
+  color: white;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: 0.3s;
+}
+
+#send-btn:hover {
+  background: #00ff00;
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+</head>
+
+<body>
+
+<!-- NAVBAR CENTERED -->
+<nav>
+  <ul>
+    <li><a href="home.html">Home</a></li>
+    <li><a href="archive.html">Archive</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="calendar.html">Calendar</a></li>
+  </ul>
+</nav>
+
+<!-- PASSWORD SCREEN -->
+<div id="password-screen" class="fade">
+  <h2>Enter Password</h2>
+  <div class="password-container">
+    <input type="password" id="pass" onkeydown="if(event.key==='Enter'){checkPass();}">
+    <span class="toggle-eye" onclick="togglePassword()">👁️</span>
+  </div>
+  <button onclick="checkPass()">Enter</button>
+</div>
+
+<!-- SHOP CONTENT -->
+<div id="shop-content" class="fade">
+  <h2>Shop Items</h2>
+
+  <div class="items-container">
+
+    <div class="item-box fade">
+      <div class="item-title">Tent</div>
+      <div class="counter">
+        <button onclick="change('tent', -1)">-</button>
+        <span id="tent">0</span>
+        <button onclick="change('tent', 1)">+</button>
+      </div>
+      <button class="add-btn" onclick="addItem('Tent')">Add</button>
+    </div>
+
+    <div class="item-box fade">
+      <div class="item-title">Rope</div>
+      <div class="counter">
+        <button onclick="change('rope', -1)">-</button>
+        <span id="rope">0</span>
+        <button onclick="change('rope', 1)">+</button>
+      </div>
+      <button class="add-btn" onclick="addItem('Rope')">Add</button>
+    </div>
+
+    <div class="item-box fade">
+      <div class="item-title">Wood</div>
+      <div class="counter">
+        <button onclick="change('wood', -1)">-</button>
+        <span id="wood">0</span>
+        <button onclick="change('wood', 1)">+</button>
+      </div>
+      <button class="add-btn" onclick="addItem('Wood')">Add</button>
+    </div>
+
+    <div class="item-box fade">
+      <div class="item-title">Pots</div>
+      <div class="counter">
+        <button onclick="change('pots', -1)">-</button>
+        <span id="pots">0</span>
+        <button onclick="change('pots', 1)">+</button>
+      </div>
+      <button class="add-btn" onclick="addItem('Pots')">Add</button>
+    </div>
+
+  </div>
+
+  <div id="order-list">
+    <h3>Your Order:</h3>
+    <div id="order-items"></div>
+    <button id="send-btn" onclick="sendOrder()">Send Order</button>
+  </div>
+</div>
+
+<script>
+  // PASSWORD FUNCTIONS
+  function checkPass() {
+    const pass = document.getElementById("pass").value;
+    const correct = "sgwen123";
+    if(pass === correct){
+      document.getElementById("password-screen").style.display="none";
+      document.getElementById("shop-content").style.display="block";
+    } else { alert("Wrong password!"); }
+  }
+
+  function togglePassword() {
+    const input = document.getElementById("pass");
+    input.type = input.type === "password" ? "text" : "password";
+  }
+
+  // COUNTER
+  function change(item, amount){
+    let el = document.getElementById(item);
+    let num = parseInt(el.innerText) + amount;
+    if(num<0) num=0;
+    el.innerText = num;
+  }
+
+  // ADD ITEMS
+  let order = [];
+  function addItem(name){
+    let qty = document.getElementById(name.toLowerCase()).innerText;
+    if(qty==0) return alert("Quantity must be > 0");
+    order.push(`${name} x ${qty}`);
+    document.getElementById("order-items").innerHTML = order.join("<br>");
+  }
+
+  // EMAILJS
+  emailjs.init("R343iEUpx16F3VYfz");
+
+  function sendOrder(){
+    if(order.length==0){ alert("No items added"); return; }
+
+    emailjs.send("service_21rqokl","template_hwaelip",{
+      username: "SGWEN User",
+      order_text: order.join("\n")
+    }).then(()=>{
+      const sendBtn = document.getElementById("send-btn");
+      sendBtn.innerText = "Sent";
+
+      order=[];
+      document.getElementById("order-items").innerHTML = "";
+      document.getElementById("tent").innerText="0";
+      document.getElementById("rope").innerText="0";
+      document.getElementById("wood").innerText="0";
+      document.getElementById("pots").innerText="0";
+
+      setTimeout(()=>{ sendBtn.innerText="Send Order"; sendBtn.disabled=false; }, 2000);
+
+    }, (err)=>{
+      alert("Error sending order: "+JSON.stringify(err));
+    });
+  }
+</script>
+
+</body>
+</html>

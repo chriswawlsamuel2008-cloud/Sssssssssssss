@@ -1,0 +1,88 @@
+/* ====== General Body & Background ====== */
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #6a11cb, #2575fc); /* خلفية متدرجة */
+  color: #fff;
+  transition: background 0.5s ease;
+}
+
+/* ====== Headers ====== */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Verdana', sans-serif;
+  color: #fff;
+  text-align: center;
+  animation: fadeInDown 1.5s ease forwards;
+}
+
+/* ====== Links ====== */
+a {
+  color: #ffd700;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: #fff;
+}
+
+/* ====== Buttons ====== */
+button, .btn {
+  background: #ff9a9e;
+  background: linear-gradient(120deg, #ff9a9e, #fad0c4);
+  border: none;
+  padding: 12px 25px;
+  border-radius: 50px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+button:hover, .btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+/* ====== Cards / Sections ====== */
+.card, .section {
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  border-radius: 15px;
+  padding: 20px;
+  margin: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover, .section:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+}
+
+/* ====== Animations ====== */
+@keyframes fadeInDown {
+  0% {opacity: 0; transform: translateY(-20px);}
+  100% {opacity: 1; transform: translateY(0);}
+}
+
+@keyframes fadeIn {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+/* ====== Dynamic Background Hover Effect ====== */
+body:hover {
+  background: linear-gradient(135deg, #2575fc, #6a11cb);
+}
+
+/* ====== Images ====== */
+img {
+  border-radius: 15px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+}

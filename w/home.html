@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home - SGWEN X</title>
+<style>
+  /* ===== General Styles ===== */
+  body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: #fff;
+  }
+
+  /* ===== Navigation Bar ===== */
+  nav {
+    display: flex;
+    justify-content: center;
+    background: rgba(0,0,0,0.6);
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
+  nav a {
+    color: #ffd700;
+    text-decoration: none;
+    margin: 0 20px;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: color 0.3s, transform 0.3s;
+  }
+
+  nav a:hover {
+    color: #fff;
+    transform: scale(1.1);
+  }
+
+  /* ===== Header ===== */
+  header {
+    text-align: center;
+    padding: 100px 20px 50px 20px;
+    font-size: 3em;
+    font-weight: bold;
+    animation: fadeInDown 1.5s ease forwards;
+  }
+
+  /* ===== Text Section ===== */
+  .text-section {
+    max-width: 900px;
+    margin: 0 auto 50px auto;
+    padding: 20px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+    text-align: center;
+    font-size: 1.2em;
+    line-height: 1.6em;
+  }
+
+  /* ===== Animations ===== */
+  @keyframes fadeInDown {
+    0% {opacity: 0; transform: translateY(-20px);}
+    100% {opacity: 1; transform: translateY(0);}
+  }
+</style>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav>
+  <a href="shop.html">Shop</a>
+  <a href="archive.html">Archive</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="calendar.html">Calendar</a>
+</nav>
+
+<!-- Header -->
+<header>Welcome to SGWEN X</header>
+
+<!-- Text Section -->
+<div class="text-section">
+  The 10th group was established in 1975 and celebrated its 50th anniversary on 10/10/2025 with a grand event. The group continues to thrive and grow.
+</div>
+
+</body>
+</html>
