@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register - SGWEN X</title>
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.container {
+  background: rgba(255,255,255,0.15);
+  padding: 40px;
+  border-radius: 20px;
+  width: 360px;
+  text-align: center;
+  color: white;
+}
+h2 { margin-bottom: 20px; }
+input, select { width: 90%; padding: 10px; margin: 10px 0; border-radius: 10px; border: none; }
+button { width: 95%; padding: 12px; margin-top: 10px; border-radius: 12px; border: none; background: #ffd700; font-weight: bold; cursor: pointer; }
+button:hover { background: #fff; color: #6a11cb; }
+.switch { margin-top: 15px; cursor: pointer; color: #ffd700; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Register</h2>
+  <input type="text" id="name" placeholder="Full Name">
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Password">
+  <input type="text" id="phone" placeholder="Phone Number">
+  <select id="role">
+    <option value="">Select Role</option>
+    <option value="leader">Leader</option>
+    <option value="member">Member</option>
+  </select>
+
+  <button id="registerBtn">Register</button>
+  <p class="switch">Already have an account? <a href="login.html" style="color:#ffd700">Login</a></p>
+</div>
+
+<!-- Firebase + JS -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+// Firebase config
+const firebaseConfig = {
+  apiKey: "AIzaSyDMzEwys8RxGsehCJ2VlrnJeiAa_WY9Lgc",
+  authDomain: "sgwen-x.firebaseapp.com",
+  projectId: "sgwen-x",
+  storageBucket: "sgwen-x.firebasestorage.app",
+  messagingSenderId: "387668410002",
+  appId: "1:387668410002:web:9479ebf474a151ebcbf04b"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// Elements
+const registerBtn = document.getElementById("registerBtn");
+const nameInput = document.getElementById("name");
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
+const phoneInput = document.getElementById("phone");
+const roleInput = document.getElementById("role");
+
+registerBtn.addEventListener("click", async () => {
+  const name = nameInput.value.trim();
+  const email = emailInput.value.trim();
+  const password = passwordInput.value;
+  const phone = phoneInput.value.trim();
+  const role = roleInput.value;
+
+  if (!name || !email || !password || !phone || !role) {
+    alert("Please fill all fields!");
+    return;
+  }
+
+  try {
+    const cred = await createUserWithEmailAndPassword(auth, email, password);
+
+    await setDoc(doc(db, "users", cred.user.uid), {
+      name, email, phone, role, isAdmin: false, createdAt: new Date()
+    });
+
+    alert(`Registration successful! Welcome, ${name}!`);
+    window.location.href = "login.html"; // Redirect to login
+
+  } catch (e) {
+    alert("Registration failed: " + e.message);
+  }
+});
+</script>
+</body>
+</html>
